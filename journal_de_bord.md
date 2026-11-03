@@ -126,6 +126,18 @@ Script `scripts/01_exploration_mesures.py` : il ouvre le fichier du 1er janvier 
   - Seuils d'information : 868 jours-stations au-dessus de 50 µg/m³ pour les PM10, 92 pour l'ozone (180 µg/m³ sur au moins 1 h), 1 seul pour le NO2. Aucun jour au seuil d'alerte de l'ozone.
 - Limites : on compte des jours où **au moins une heure** dépasse le seuil horaire (colonne `max horaire`), pas le nombre exact d'heures ; les moyennes glissantes sur 8 h (ozone, CO) n'ont pas été calculées (voir C2).
 
+**Tâche C5** (`graphiques.py`, à la racine comme `carte.py` d'Amel) : page « Lieux et seuils » du dashboard
+- Une fonction par graphique ou tableau du document C2 qui n'était pas déjà dans les pages d'Amel. Chacune reçoit les données déjà filtrées par le dashboard (polluant, période, régions) et renvoie une figure plotly ou un tableau :
+  - `barres_regions` (G8, stations de fond), `boxplot_influence` (G6), `nuage_densite` (G9), `histogramme` (G2, avec un trait au seuil OMS) ;
+  - `tableau_seuils` (G10 : jours au-dessus du seuil OMS 24 h et des seuils français d'information et d'alerte), `camembert_oms` (G12), `tableau_contingence` (G11 : type de station × dépassement OMS) ;
+  - `courbe_jours` (moyenne des stations jour par jour, avec un trait au seuil OMS) et `sunburst_stations` (G13).
+- `afficher(donnees_filtrees, polluant)` met tout en page avec Streamlit (`st.subheader`, `st.columns`, `st.plotly_chart`, `st.write`, `st.expander`). C'est le branchement proposé par Amel : app.py appelle cette fonction, donc on n'a pas eu à modifier son fichier.
+- Les seuils OMS sont importés de carte.py (`SEUILS_OMS_JOUR`) : les chiffres sont les mêmes que sur la carte et la page d'accueil, et que dans C4.
+- Problème rencontré : les couleurs de « Fond », « Industrielle » et « Trafic » changeaient d'un graphique à l'autre, car plotly donne les couleurs dans l'ordre d'apparition. Solution : `category_orders` avec toujours l'ordre alphabétique, qui est aussi l'ordre des graphiques d'Amel. On a donc les mêmes couleurs dans tout le dashboard.
+- Cas particuliers gérés : l'ozone n'a pas de seuil OMS sur 24 h (pas de camembert ni de contingence) ; le benzène n'a aucun seuil dans notre document (un message l'indique).
+- Fonctions pas vues en cours, utilisées seules : `fig.add_vline` / `fig.add_hline`, qui tracent le trait du seuil.
+- Tests : la page s'affiche sans erreur pour NO2, PM10, O3, CO et C6H6, avec et sans filtre de région. Les chiffres du tableau des seuils sont les mêmes que ceux de C4.
+
 ## 03/11/2026 — Amel — Tâche A2 : nettoyage d'un fichier de mesures
 
 **Ce qu'on a fait et pourquoi**
