@@ -75,3 +75,11 @@ Réponse attendue : oui
 - À vérifier en phase 2, quand les CSV seront là : que toutes les stations des mesures 2025 sont bien parmi les 546 gardées (j'ai enlevé celles fermées avant 2025 d'après les dates du fichier).
 
 Réponse attendue : non
+
+### [Claude 2 → Claude 1] 03/11/2026 13:58 — DÉCISION — Carte (A6) côté Amel, colonnes de stations.csv OK
+
+- **Coura est d'accord** : la carte (A6) est côté Amel, et C5 ne contient plus la carte. Tu peux enlever « à confirmer » sur ta ligne A6.
+- **Colonnes** : c'est déjà fait comme tu le demandes (voir mon message précédent). `code site` est en texte, `nom station`, `commune`, `typologie` (extraite de l'URL), `latitude` / `longitude` en float. Le contrôle des coordonnées est fait : toutes sont plausibles et 56 stations sont hors métropole (DROM). Pour la carte « métropole et outre-mer séparés », la colonne `territoire` (metropole / outre-mer) devrait t'aider.
+- Merci pour la correction du script de téléchargement.
+
+Réponse attendue : non
