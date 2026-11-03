@@ -86,3 +86,36 @@ Script `scripts/01_exploration_mesures.py` : il ouvre le fichier du 1er janvier 
 - Prompt : le prompt de démarrage préparé avec Amel (fichier `PROMPT_CLAUDE_COURA.md`), en résumé : « Fais la mise en place (git, Python, clone du dépôt), lis les fichiers du projet et respecte les règles de CLAUDE.md, réponds à Claude 1 dans CONVERSATION_CLAUDE.md, explique-moi où en est le projet et mes tâches, puis on commence ensemble la tâche C1 en ne travaillant que sur mes fichiers. »
 - Pourquoi : gagner du temps sur l'installation et la coordination avec Amel, et avoir une première version du script C1 expliquée étape par étape pour l'oral.
 - Ce qu'on en a fait : Claude a écrit et testé le script C1 et me l'a expliqué. Il me reste à le relire et à le lancer moi-même avant de valider la tâche.
+
+## 03/11/2026 — Amel — Tâche A2 : nettoyage d'un fichier de mesures
+
+**Ce qu'on a fait et pourquoi**
+Script `scripts/nettoyage_mesures.py` avec deux fonctions, pour pouvoir les réutiliser sur les 365 jours (A3) :
+- `verifier_mesures(mesures)` : fait les contrôles et affiche ce qu'elle trouve, sans rien modifier ;
+- `nettoyer_mesures(mesures)` : renvoie une copie nettoyée.
+
+Le fichier s'appelle `nettoyage_mesures.py` (et non `02_...`) car Python ne peut pas importer un fichier dont le nom commence par un chiffre.
+
+**Contrôles (consigne point par point), sur le 1er janvier**
+- *Textes / format des codes* (expressions régulières) : tous les `code site` suivent le format `FR` + 5 chiffres, tous les `code zas` le format `FR44ZAG02` → OK. 312 lignes avaient des noms de station avec un espace en trop à la fin (`"Troyes La Tour "`).
+- *Colonnes liées* : la date de fin est toujours la date de début + 1 h → la colonne `Date de fin` est inutile. Chaque code de station a un seul nom. Deux noms (« PASTEUR », « SAINT EXUPERY ») sont utilisés par deux stations différentes : c'est normal (deux villes différentes), il faut donc toujours identifier une station par son code, pas par son nom.
+- *Validité et code qualité* (tableau de contingence avec `groupby`) : `N` correspond toujours à `validité = -1` (invalide) ; `A` = donnée vérifiée valide ; `R` = donnée brute (pas encore vérifiée) valide ; `validité = 4` n'existe que pour l'ozone (valide aussi).
+- *Données manquantes* : les 2 034 lignes sans valeur sont exactement les lignes invalides.
+- *Valeurs aberrantes* : 1 097 valeurs négatives (surtout NO et SO2, jusqu'à -4,5). Méthode de l'IQR (au-dessus de Q3 + 1,5 × IQR) : 6 à 7 % des valeurs de PM10 et de NO2 sont « hautes ».
+
+**Choix de nettoyage**
+1. Suppression des lignes invalides (`validité = -1`) : elles n'ont pas de valeur, on ne peut rien en faire. → 47 934 lignes.
+2. Suppression des **doublons cachés** : une station (FR18058) envoie ses mesures de PM10 et PM2.5 deux fois, même appareil, même heure, même valeur, mais avec un `discriminant` différent. `drop_duplicates` sur toutes les colonnes ne les voyait pas ; on cherche les doublons sur (station, polluant, heure, appareil, valeur). → 47 886 lignes. Le 15 juillet, il n'y en a pas.
+3. Suppression de 8 colonnes : 3 vides, `Réglementaire` et `type de valeur` (toujours la même valeur), `valeur brute` (diffère de `valeur` de 0,05 au plus, c'est juste l'arrondi), `Date de fin` (toujours début + 1 h) et `procédure de mesure` (détail technique). → 15 colonnes.
+4. Espaces en trop enlevés dans les noms de stations (`strip`).
+5. **Normalisation des unités** : le CO est converti de mg/m³ en µg/m³ (× 1 000) et l'unité s'écrit partout `µg/m3` (avant : `µg-m3` ou `µg/m3`). Tous les polluants sont maintenant dans la même unité.
+6. Valeurs négatives mises à 0 : l'appareil se trompe légèrement quand l'air est presque propre, la vraie valeur est proche de 0. Les supprimer aurait fait monter les moyennes à tort.
+7. La date devient une vraie date (`pd.to_datetime`) au lieu d'un texte.
+
+**Choix de ne pas faire**
+- On **ne supprime pas** les valeurs repérées par l'IQR : la pollution a des pics réels (heures de pointe, Nouvel An avec les PM10 à 304 µg/m³), ce ne sont pas des erreurs. Les AASQA les ont d'ailleurs marquées comme valides. On vérifiera en A3, sur l'année entière, s'il existe des valeurs vraiment impossibles.
+- `discriminant` (mélange `I` / `i`) n'est pas modifié : c'est juste un identifiant d'appareil, et aucune station n'a à la fois `I` et `i` pour le même polluant.
+- Les heures restent en temps universel pour l'instant (à traiter en A4 pour le profil sur une journée).
+- Pas de normalisation de type min-max : on veut comparer les vraies concentrations aux seuils réglementaires.
+
+**Résultat** : 1er janvier : 49 968 → 47 886 lignes, 23 → 15 colonnes, 0 valeur manquante (sauf `discriminant`), une seule unité. Durée : 0,2 s par fichier, donc environ 1 min 30 pour les 365.
