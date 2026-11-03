@@ -5,6 +5,9 @@ data/mesures_horaires_2025/
 # Fichiers produits par nos scripts (trop lourds aussi)
 data_clean/*.csv
 
+# Graphiques plotly (près de 5 Mo chacun) : on les régénère avec les scripts
+resultats/*.html
+
 # Supports de cours de l'enseignante : on ne les publie pas (dépôt public)
 /*.pdf
 cours*/

@@ -155,3 +155,20 @@ Un seul cas est douteux (CO à Ajaccio, station trafic) : on le signale mais on 
 - Le `type d'influence` dépend du polluant mesuré, pas seulement de la station (ex. une même station est « Industrielle » pour le SO2 et « Fond » pour l'ozone).
 - 3 stations ont changé de `type d'implantation` en mai (Rurale près des villes → Périurbaine).
 - Les jours sont découpés en heure TU (temps universel), pas en heure française.
+
+## 03/11/2026 — Amel — Tâche A4 : analyse dans le temps
+
+**Ce qu'on a fait et pourquoi**
+Script `scripts/06_analyse_temps.py` (15 s). Il lit les fichiers de A3, calcule des tableaux (`describe`, `groupby`, `pivot_table`) et trace 7 graphiques avec **plotly express** (`px.line`, `px.bar`, `px.box`), enregistrés en `.html` dans `resultats/`. On étudie surtout les 4 polluants principaux (NO2, O3, PM10, PM2.5), qui ont le même ordre de grandeur.
+
+**Choix et problèmes**
+- **Heure française** : les heures sont en temps universel en métropole. Pour le profil sur une journée, on ajoute 1 h en janvier (heure d'hiver) et 2 h en juillet (heure d'été), avec `pd.Timedelta`. Les stations d'outre-mer sont enlevées de ce graphique (leurs heures sont déjà locales et leur climat est différent), grâce à la liste de leurs organismes et à `isin`.
+- **Trafic / fond** : on compare la **moyenne annuelle de chaque station** plutôt que toutes les moyennes journalières. Une station = un point, le boxplot reste lisible.
+- Les graphiques `.html` ne sont pas envoyés sur GitHub (5 Mo chacun) : on les recrée en lançant le script.
+
+**Résultats**
+1. **Statistiques par polluant** (moyennes journalières, µg/m³) : NO2 moyenne 13,4 (médiane 10,5) ; O3 55,4 ; PM10 15,4 ; PM2.5 8,9. Pour presque tous les polluants, la moyenne est au-dessus de la médiane : il y a quelques jours très pollués qui tirent la moyenne vers le haut (distribution asymétrique, cours 1).
+2. **Saisons** : le NO2 et les particules sont plus élevés **en hiver** (NO2 17,8 en février contre 9,5 en juillet ; PM2.5 14,0 en février contre 5,1 en septembre) : chauffage, et l'air froid garde la pollution près du sol. L'**ozone** est au contraire plus élevé **au printemps et en été** (71,5 en juin contre 34,9 en décembre) : il se forme sous l'effet du soleil.
+3. **Jour de la semaine** : le NO2 baisse nettement le **dimanche** (10,4 contre 14,9 le vendredi), car il y a moins de circulation. L'ozone ne baisse pas.
+4. **Profil sur une journée** (heure française) : en janvier, le NO2 a **deux pics, à 8 h (23,7) et à 18 h (26,7)**, les heures de pointe. En juillet, l'ozone monte toute la journée et atteint son maximum **vers 15-17 h (88)**, quand le soleil est le plus fort, puis redescend la nuit.
+5. **Trafic / fond** : les stations **trafic** ont deux fois plus de NO2 que les stations de fond (21,7 contre 10,7 en moyenne annuelle) ; l'écart est plus petit pour les PM10 (19,3 contre 14,2) et très faible pour les PM2.5 (9,7 contre 8,7), qui viennent aussi du chauffage et voyagent plus loin. L'ozone n'est presque mesuré qu'en stations de fond.
