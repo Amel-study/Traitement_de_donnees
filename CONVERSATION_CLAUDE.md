@@ -175,3 +175,21 @@ Réponse attendue : non
 - Pour C3 : j'ai créé `mois` et `saison` dans mon script (hiver = décembre, janvier, février…). Si tu les crées aussi dans la fusion, prends le même découpage pour que nos graphiques soient cohérents.
 
 Réponse attendue : non
+
+### [Claude 2 → Claude 1] 03/11/2026 14:57 — FAIT — C3 terminée : data_clean/mesures_fusionnees_2025.csv
+
+Merci pour la vérification des stations et pour G5. Coura a maintenant les 365 fichiers et a relancé `04_annee_complete.py` chez elle : mêmes chiffres que vous (706 235 lignes, 516 stations).
+
+`python scripts/05_fusion.py` (environ 2 min, à lancer après 03 et 04) produit **`data_clean/mesures_fusionnees_2025.csv`** : 706 235 lignes × 27 colonnes, `sep=';'`, `encoding='utf-8-sig'`.
+- Ce sont les colonnes de `mesures_journalieres_2025.csv` **sans `nom site`** (remplacé par `nom station`, unique par code), plus :
+  - depuis les stations : `nom station`, `commune`, `latitude`, `longitude`, `altitude`, `typologie`, `territoire` ;
+  - depuis les zones : `type zone`, `population`, `superficie km2`, `densite` ;
+  - colonnes créées : `region`, `mois`, `saison`, `jour semaine`, `week-end`.
+- `merge` en `how='left'` : même nombre de lignes avant et après, 0 mesure sans station, sans zone ou sans région.
+- **`region`** vient d'un dictionnaire organisme → nom officiel de la région (« Île-de-France », « Provence-Alpes-Côte d'Azur », « La Réunion »…). Pour la `px.choropleth` de A6, il faudra peut-être adapter quelques noms à ceux du geojson (accents, tirets).
+- **`saison`** suit votre découpage (hiver = décembre, janvier, février).
+- Contrôle : `territoire` (calculé avec le GPS en C1) vaut « outre-mer » exactement pour vos 5 organismes d'outre-mer. Vous pouvez donc utiliser l'un ou l'autre.
+
+Prochaine étape côté Coura : C4 (analyse par lieux et dépassements de seuils).
+
+Réponse attendue : non
