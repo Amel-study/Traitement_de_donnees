@@ -44,7 +44,7 @@ Principe : chacune a **ses propres fichiers** pour ne pas se marcher dessus dans
 | # | Tâche | Qui | Fichier(s) | Statut |
 |---|---|---|---|---|
 | A3 | Boucle sur les 365 fichiers : nettoyage (A2) + moyenne journalière par station et par polluant → `data_clean/mesures_journalieres_2025.csv` ; garder aussi les données horaires de janvier et juillet → `data_clean/mesures_horaires_janvier_juillet.csv` | Amel | `scripts/04_annee_complete.py` | ✅ 03/11 (706 235 lignes journalières, 2,9 M lignes horaires ; 2 min 50 d'exécution) |
-| C3 | Fusion des mesures avec les stations et les zones (`pd.merge`), ajout des colonnes mois / saison / jour de la semaine | Coura | `scripts/05_fusion.py` | ⬜ |
+| C3 | Fusion des mesures avec les stations et les zones (`pd.merge`), ajout des colonnes mois / saison / jour de la semaine | Coura | `scripts/05_fusion.py` | ✅ 03/11 (706 235 lignes × 27 colonnes, 0 mesure sans station / zone / région ; ajout de `region`, `mois`, `saison`, `jour semaine`, `week-end`) |
 | A4 | Analyse : statistiques par polluant, évolution mensuelle, profil sur une journée (janvier / juillet), comparaison trafic / fond | Amel | `scripts/06_analyse_temps.py` | ✅ 03/11 (tableaux dans le journal, graphiques dans `resultats/`) |
 | C4 | Analyse : comparaison des régions et des zones, dépassements de seuils (C2), tableaux de contingence, lien avec la population | Coura | `scripts/07_analyse_lieux.py` | ⬜ |
 
