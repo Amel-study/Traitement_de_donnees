@@ -100,6 +100,19 @@ Script `scripts/01_exploration_mesures.py` : il ouvre le fichier du 1er janvier 
 - Problème : certains seuils demandent des moyennes glissantes sur 8 h (ozone, CO) ou des heures consécutives, ce qu'on n'a pas vu en cours → présentés comme une limite. Les seuils horaires pourront être vérifiés jour par jour grâce à la colonne `max horaire` d'Amel.
 - Le CO est converti en µg/m³ dans nos fichiers nettoyés → ses seuils en mg/m³ sont multipliés par 1 000.
 
+**Téléchargement des données et passage à l'année complète**
+- Je n'arrivais pas à ouvrir Anaconda → j'ai lancé le Python d'Anaconda directement depuis l'invite de commandes Windows (`C:\Users\coura\anaconda3\python.exe scripts\telecharger_donnees.py`).
+- Premier lancement : 359 fichiers sur 365. Six jours (11 au 14 août, 6 et 7 décembre) ont échoué à cause d'une coupure de ma connexion internet (message « getaddrinfo failed »). Le script efface les fichiers incomplets, donc un deuxième lancement a récupéré les 6 manquants.
+- Lancement du script d'Amel `04_annee_complete.py` sur mon ordinateur : mêmes résultats que chez elle (706 235 lignes journalières, 516 stations).
+
+**Tâche C3** (`scripts/05_fusion.py`)
+- Fusion des mesures journalières avec `stations.csv` (sur `code site`) puis avec `zones.csv` (sur `code zas`) grâce à `pd.merge(..., how="left")`. Pourquoi : chaque mesure a maintenant ses coordonnées, sa commune, sa typologie, le type et la population de sa zone.
+- Vérifications : même nombre de lignes avant et après (706 235), aucune mesure sans station, sans zone ou sans région. On a choisi `how="left"` plutôt que `inner` pour pouvoir prouver qu'aucune mesure n'est perdue.
+- Colonne `nom site` supprimée : 22 stations changent de nom en cours d'année, on garde le nom unique de `stations.csv`.
+- Colonnes ajoutées : `region` (dictionnaire organisme → région), `mois`, `saison` (même découpage qu'Amel), `jour semaine`, `week-end`.
+- Contrôle de cohérence entre deux colonnes liées : la colonne `territoire` (calculée en C1 à partir des coordonnées GPS) donne « outre-mer » exactement pour les 5 organismes des DROM. Les deux sources sont d'accord.
+- Problème : le script met environ 2 minutes à cause de la taille du fichier (167 Mo) → rien à corriger, il ne se lance qu'une fois.
+
 ## 03/11/2026 — Amel — Tâche A2 : nettoyage d'un fichier de mesures
 
 **Ce qu'on a fait et pourquoi**
