@@ -1,0 +1,12 @@
+﻿Polluant;seuil;valeur (µg/m3);jours-stations mesurés;jours-stations au-dessus;% au-dessus;stations concernées
+PM2.5;OMS 24 h;15;87641;11429;13.04;255
+PM10;OMS 24 h;45;115765;1415;1.22;252
+NO2;OMS 24 h;25;123971;16252;13.11;294
+SO2;OMS 24 h;40;25806;27;0.1;9
+CO;OMS 24 h;4000;5496;0;0.0;0
+PM10;information (moyenne du jour);50;115765;868;0.75;202
+PM10;alerte (moyenne du jour);80;115765;68;0.06;32
+NO2;information (au moins 1 h);200;123971;1;0.0;1
+O3;information (au moins 1 h);180;99449;92;0.09;60
+O3;alerte (au moins 1 h);240;99449;0;0.0;0
+SO2;information (au moins 1 h);300;25806;8;0.03;8
