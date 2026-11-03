@@ -63,3 +63,26 @@ Script `scripts/01_exploration_mesures.py` : il ouvre le fichier du 1er janvier 
 - **Valeurs négatives** pour tous les polluants sauf le benzène (minimum -4,5) : une concentration ne peut pas être négative. Ce sont sans doute de petites erreurs des appareils quand la concentration est presque nulle → à décider : les supprimer ou les mettre à 0.
 - **Valeurs très élevées** : PM10 jusqu'à 304,6 µg/m³ et NOX jusqu'à 537 µg/m³. Le 1er janvier, ça peut venir des feux d'artifice et des feux de la nuit du Nouvel An → à vérifier avant de les traiter comme des erreurs.
 - **Texte** : `discriminant` mélange majuscules et minuscules (`I` et `i`, et un `j` minuscule) → à vérifier s'il faut les harmoniser.
+
+## 03/11/2026 — Coura
+
+**Ce qu'on a fait et pourquoi**
+- Mise en place : copie du dépôt GitHub sur mon ordinateur, configuration de git (nom, e-mail), vérification que je peux envoyer mes modifications sur le dépôt.
+- Répartition validée avec Amel : C1 et C2 maintenant, puis C3, C4 et C5. La carte interactive (A6), proposée après la validation du dataset, sera faite par Amel.
+- **Tâche C1** : script `scripts/03_metadonnees.py` qui nettoie les deux fichiers de métadonnées et produit `data_clean/stations.csv` (546 stations) et `data_clean/zones.csv` (71 zones). Pourquoi : ces fichiers serviront à relier chaque mesure à un lieu (coordonnées, commune, type de zone, population) pour la carte et l'analyse par lieux.
+  - Stations : 9 colonnes gardées sur 17 ; aucun doublon ; codes vérifiés avec une expression régulière ; typologie extraite des adresses web (`.../urban` → `urban`) ; accents retirés des noms de communes (597 → 583 communes : 14 étaient écrites de deux façons) ; coordonnées vérifiées et colonne `territoire` (métropole / outre-mer) ajoutée ; 332 stations fermées avant 2025 (ou ouvertes après) supprimées.
+  - Zones : codes vérifiés, type de zone (agglomération, zone à risque, zone régionale) lu dans le code, densité de population calculée.
+
+**Problèmes rencontrés et solutions**
+- Deux stations portent parfois le même nom (ex : PASTEUR à Donges et à Chambéry) → codes et villes différents : ce ne sont pas des doublons, on les garde.
+- Latitudes négatives et longitudes jusqu'à 55 → ce ne sont pas des erreurs : ce sont les stations des DROM (vérifié en affichant les communes hors d'un rectangle autour de la métropole).
+- Les noms des zones écrivent « ZR » ou « ZRE » pour le même type de zone → on lit le type dans le code de la zone, qui est plus fiable.
+- La population des zones date du recensement de 2018 → limite à signaler à l'oral.
+- Claude n'a pas pu lancer le téléchargement des données (accès à data.gouv.fr bloqué depuis son environnement) → je le lancerai moi-même depuis Anaconda Prompt.
+- À vérifier en phase 2 : que toutes les stations des mesures 2025 font partie des 546 stations gardées.
+
+**Utilisation de l'IA**
+- Outil : Claude (« Claude 2 »), relié à mon ordinateur.
+- Prompt : le prompt de démarrage préparé avec Amel (fichier `PROMPT_CLAUDE_COURA.md`), en résumé : « Fais la mise en place (git, Python, clone du dépôt), lis les fichiers du projet et respecte les règles de CLAUDE.md, réponds à Claude 1 dans CONVERSATION_CLAUDE.md, explique-moi où en est le projet et mes tâches, puis on commence ensemble la tâche C1 en ne travaillant que sur mes fichiers. »
+- Pourquoi : gagner du temps sur l'installation et la coordination avec Amel, et avoir une première version du script C1 expliquée étape par étape pour l'oral.
+- Ce qu'on en a fait : Claude a écrit et testé le script C1 et me l'a expliqué. Il me reste à le relire et à le lancer moi-même avant de valider la tâche.
