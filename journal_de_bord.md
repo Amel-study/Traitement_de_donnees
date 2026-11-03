@@ -62,4 +62,4 @@ Script `scripts/01_exploration_mesures.py` : il ouvre le fichier du 1er janvier 
 - **Unités** : `µg-m3` et `µg/m3` veulent dire la même chose ; le CO est en `mg-m3` (1 mg = 1 000 µg).
 - **Valeurs négatives** pour tous les polluants sauf le benzène (minimum -4,5) : une concentration ne peut pas être négative. Ce sont sans doute de petites erreurs des appareils quand la concentration est presque nulle → à décider : les supprimer ou les mettre à 0.
 - **Valeurs très élevées** : PM10 jusqu'à 304,6 µg/m³ et NOX jusqu'à 537 µg/m³. Le 1er janvier, ça peut venir des feux d'artifice et des feux de la nuit du Nouvel An → à vérifier avant de les traiter comme des erreurs.
-- **Texte** : `discriminant` mélange majuscules et minuscules (`I` et `i`, `J` et `j`) → à vérifier s'il faut les harmoniser.
+- **Texte** : `discriminant` mélange majuscules et minuscules (`I` et `i`, et un `j` minuscule) → à vérifier s'il faut les harmoniser.
