@@ -32,7 +32,7 @@ Principe : chacune a **ses propres fichiers** pour ne pas se marcher dessus dans
 
 | # | Tâche | Qui | Fichier(s) | Statut |
 |---|---|---|---|---|
-| 0 | Faire valider le dataset par l'enseignante | Amel + Coura | — | ⬜ |
+| 0 | Faire valider le dataset par l'enseignante | Amel + Coura | — | ✅ 03/11 (validé ; idée de carte de France ajoutée, voir A6) |
 | A1 | Décrire un fichier de mesures : nb de lignes / colonnes, sens des colonnes, types, valeurs des colonnes de catégories | Amel | `scripts/01_exploration_mesures.py` | ⬜ |
 | A2 | Script de nettoyage d'un fichier de mesures (fonction `nettoyer_mesures(df)`) : manquantes, unités, doublons, aberrantes, intervalles, format des codes (regex), colonnes liées (date de fin = début + 1 h, validité ↔ code qualité, 1 code site = 1 nom), CO en mg | Amel | `scripts/02_nettoyage_mesures.py` | ⬜ |
 | C1 | Explorer et nettoyer les métadonnées : onglet `AirQualityStations` (garder code, nom, commune, latitude, longitude, altitude, typologie ; transformer les URL du type `.../areaclassification/urban` en `urban` ; vérifier les coordonnées ; doublons ; stations fermées) et onglet `AirQualityZones` (code, nom, population, superficie). Sauver `data_clean/stations.csv` et `data_clean/zones.csv` | Coura | `scripts/03_metadonnees.py` | ⬜ |
@@ -53,6 +53,7 @@ Principe : chacune a **ses propres fichiers** pour ne pas se marcher dessus dans
 | # | Tâche | Qui | Fichier(s) | Statut |
 |---|---|---|---|---|
 | A5 | Structure du dashboard Streamlit, filtres (polluant, région, période), pages | Amel | `app.py` | ⬜ |
-| C5 | Graphiques du dashboard (histogrammes, boxplots, courbes, carte des stations) | Coura | `graphiques.py` | ⬜ |
+| C5 | Graphiques du dashboard (histogrammes, boxplots, courbes) | Coura | `graphiques.py` | ⬜ |
+| A6 | **Carte interactive de la France** (proposition, à confirmer) : un point par station, placé grâce à la latitude / longitude de `data_clean/stations.csv`, coloré selon la concentration moyenne ; filtres polluant / période ; infos au survol (nom, commune, type, valeur moyenne, nb de jours de dépassement) ; métropole et outre-mer séparés. Bonus : moyenne par région | Amel | `carte.py` | ⬜ |
 | 6 | Relecture croisée du code (chacune relit celui de l'autre) | Amel + Coura | — | ⬜ |
 | 7 | Préparation de l'oral | Amel + Coura | `docs/oral.md` | ⬜ |

@@ -5,6 +5,7 @@
 
 import os
 import urllib.request
+import urllib.error
 
 ADRESSE = "https://files.data.gouv.fr/ineris/lcsqa/concentrations-de-polluants-atmospheriques-reglementes/temps-reel/2025/"
 DOSSIER = "data/mesures_horaires_2025"
@@ -27,8 +28,14 @@ for mois in range(1, 13):
             urllib.request.urlretrieve(ADRESSE + nom_origine, nom_fichier)
             nb_telecharges = nb_telecharges + 1
             print(f"OK : {date}")
-        except Exception:
-            # ce jour n'existe pas (ex : 31 février)
+        except urllib.error.HTTPError:
+            # fichier introuvable sur le site : ce jour n'existe pas (ex : 31 février)
             continue
+        except Exception as erreur:
+            # vraie erreur (pas de connexion, coupure...) : on l'affiche
+            print(f"ERREUR pour {date} : {erreur}")
+            # on efface le fichier à moitié téléchargé pour le reprendre la prochaine fois
+            if os.path.exists(nom_fichier):
+                os.remove(nom_fichier)
 
 print(f"Terminé : {nb_telecharges} fichiers téléchargés.")

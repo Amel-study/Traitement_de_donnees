@@ -33,3 +33,5 @@ Chacune écrit ses propres entrées, en indiquant son prénom.
 ## 03/11/2026 — Amel
 
 - Mise en place du dépôt GitHub pour travailler à deux, d'un fichier d'avancement et d'une répartition des tâches avec Coura.
+- Dataset validé par l'enseignante. Après discussion avec elle : idée d'ajouter au dashboard une carte de la France où l'on voit les informations selon l'endroit (une station = un point coloré selon la pollution).
+- Amélioration du script de téléchargement (remarque de Claude 2) : il affiche maintenant les vraies erreurs (coupure de connexion) au lieu de les cacher, et efface un fichier à moitié téléchargé pour qu'il soit repris au lancement suivant.
