@@ -203,3 +203,24 @@ Script `scripts/06_analyse_temps.py` (15 s). Il lit les fichiers de A3, calcule 
 
 - À la demande de Coura (son Claude ne peut pas télécharger les données) : on a lancé son script `03_metadonnees.py` sur nos données. Les **516 stations** des mesures 2025 sont toutes dans les 546 de `stations.csv`, et les 70 zones dans `zones.csv` : la fusion (C3) ne perdra aucune mesure. 30 stations de `stations.csv` n'ont aucune mesure en 2025.
 - Relecture de la proposition de graphiques de Coura (C2) : G1, G3, G4 et G7 étaient déjà faits en A4. Ajout de **G5, boxplot par saison** (une station = un point, moyenne sur la saison). Médiane des stations (µg/m³) : NO2 16,1 en hiver contre 7,9 en été ; PM2.5 12,6 contre 7,3 ; O3 41,2 en hiver contre 69,0 en été. Ça confirme l'évolution par mois.
+
+## 03/11/2026 — Amel — Tâche A6 : cartes de la France
+
+**Ce qu'on a fait et pourquoi**
+Fichier `carte.py` (à la racine, pour que le dashboard `app.py` puisse l'importer). Il contient des **fonctions qui renvoient une figure plotly**, réutilisables dans Streamlit avec `st.plotly_chart` :
+- `filtrer(donnees, polluant, mois_debut, mois_fin)` : un polluant et une période ;
+- `moyennes_par_station(...)` : une ligne par station (moyenne, nombre de jours mesurés, nombre de jours au-dessus du seuil OMS sur 24 h) ;
+- `carte_stations(...)` : **carte à points** (`px.scatter_geo`), une station = un point placé grâce à sa latitude et sa longitude, coloré du jaune au rouge selon la moyenne ; au survol : nom, commune, région, type d'influence, moyenne, jours au-dessus de l'OMS. Métropole ou une région d'outre-mer au choix ;
+- `carte_regions(...)` : **carte choropleth** (`px.choropleth` avec un fichier geojson, comme dans le cours Graphiques_plotly), chaque région colorée selon la moyenne de ses stations.
+
+**Choix et problèmes**
+- Les contours des régions viennent d'un fichier geojson libre (`data/geo/regions.geojson`, projet france-geojson). Les 13 noms de régions correspondent exactement à la colonne `region` créée par Coura en C3 : pas de correction nécessaire.
+- Moyenne d'une région = **moyenne des moyennes de ses stations** (et pas moyenne de toutes les lignes) : sinon une station mesurée tous les jours compterait plus qu'une station mesurée la moitié de l'année.
+- L'outre-mer n'est pas sur la carte de métropole (sinon la France serait minuscule) : on choisit une région d'outre-mer à part. Limite : les contours des îles sont grossiers avec `scatter_geo`.
+- Seuils OMS repris du document de Coura (C2) ; l'ozone n'a pas de seuil sur 24 h, donc pas de comptage pour lui.
+- Pour regarder les cartes, on a ouvert les fichiers `.html` dans un navigateur.
+
+**Résultats (moyennes 2025)**
+- **NO2** : les régions les plus touchées sont l'**Île-de-France** (21,9 µg/m³) et **PACA** (16,7) ; les moins touchées les Pays de la Loire (8,9) et la Bretagne (10,0). Station la plus polluée : **autoroute A1 à Saint-Denis** (48,7 µg/m³, au-dessus du seuil OMS 363 jours sur 365), puis la RN20 à Montlhéry et Montpellier Libération : toutes des stations trafic.
+- **PM10** : Île-de-France (17,6) et PACA (17,0) en tête ; stations les plus touchées : A1 Saint-Denis et Avignon (39 jours au-dessus du seuil OMS de 45 µg/m³).
+- **Ozone** : carte inversée ! Les moyennes les plus élevées sont en **Corse** (67,6) et en Bretagne (63,0), et les stations les plus touchées sont en **montagne** (Le Monêtier-les-Bains dans les Alpes, 91,9 ; le Mézenc) ; en été, le **Sud-Est** ressort nettement. L'ozone se forme avec le soleil loin des sources de pollution, et il est détruit en ville par le NO émis par les voitures : il y en a donc plus à la campagne, en altitude et au soleil.

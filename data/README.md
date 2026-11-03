@@ -8,6 +8,7 @@ Fichiers téléchargés le 24/10/2026, contenu non modifié (seuls les noms ont 
 | `mesures_horaires_2025/mesures_horaires_2025-MM-JJ.csv` (365 fichiers) | `temps-reel/2025/FR_E2_2025-MM-JJ.csv` | **Fichier principal.** Concentrations horaires de polluants mesurées par toutes les stations françaises, un fichier par jour (~50 000 lignes × 23 colonnes, séparateur `;`, UTF-8 avec BOM). |
 | `metadonnees_stations.xls` | `fr-2026-d-07082026-1.xls` (« Dataset D ») | Référentiel des stations : coordonnées GPS, commune, altitude, typologie, réseau, points de prélèvement, méthodes de mesure. Jointure : `code site` (CSV) ↔ `NatlStationCode` (onglet AirQualityStations). |
 | `metadonnees_zones_surveillance.xls` | `fr-2022-b-lcsqa-ineris-20230317.xls` (« Dataset B ») | Référentiel des zones administratives de surveillance (ZAS) : nom, type, population, superficie. Jointure : `code zas` (CSV) ↔ `ZoneCode` (onglet AirQualityZones). |
+| `geo/regions.geojson` | `regions-version-simplifiee.geojson` du projet [france-geojson](https://github.com/gregoiredavid/france-geojson) (contours issus des données ouvertes IGN / Etalab) | Contours simplifiés des 13 régions de métropole, pour la carte choropleth (A6). Jointure : `region` (fichier fusionné) ↔ `properties.nom`. |
 | `documentation/note_explicative_donnees.pdf` | `mise-a-disposition-des-donnees-qa-e2-20180919.pdf` | Note du LCSQA qui explique le flux E2, les codes de validité/vérification et les datasets B et D. |
 
 ## Colonnes des CSV de mesures

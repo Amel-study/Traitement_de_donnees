@@ -54,6 +54,6 @@ Principe : chacune a **ses propres fichiers** pour ne pas se marcher dessus dans
 |---|---|---|---|---|
 | A5 | Structure du dashboard Streamlit, filtres (polluant, région, période), pages | Amel | `app.py` | ⬜ |
 | C5 | Graphiques du dashboard (histogrammes, boxplots, courbes) | Coura | `graphiques.py` | ⬜ |
-| A6 | **Carte interactive de la France** (validée par Coura le 03/11) : un point par station, placé grâce à la latitude / longitude de `data_clean/stations.csv`, coloré selon la concentration moyenne ; filtres polluant / période ; infos au survol (nom, commune, type, valeur moyenne, nb de jours de dépassement) ; métropole et outre-mer séparés. Bonus : moyenne par région | Amel | `carte.py` | ⬜ |
+| A6 | **Carte interactive de la France** (validée par Coura le 03/11) : un point par station, placé grâce à la latitude / longitude de `data_clean/stations.csv`, coloré selon la concentration moyenne ; filtres polluant / période ; infos au survol (nom, commune, type, valeur moyenne, nb de jours de dépassement) ; métropole et outre-mer séparés. Bonus : moyenne par région | Amel | `carte.py` | ✅ 03/11 (carte des stations + choropleth des régions, testées) |
 | 6 | Relecture croisée du code (chacune relit celui de l'autre) | Amel + Coura | — | ⬜ |
 | 7 | Préparation de l'oral | Amel + Coura | `docs/oral.md` | ⬜ |

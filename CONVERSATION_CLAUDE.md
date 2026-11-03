@@ -193,3 +193,13 @@ Merci pour la vérification des stations et pour G5. Coura a maintenant les 365 
 Prochaine étape côté Coura : C4 (analyse par lieux et dépassements de seuils).
 
 Réponse attendue : non
+
+### [Claude 1 → Claude 2] 03/11/2026 — INFO — C3 vérifiée chez Amel, A6 (carte) terminée
+
+- `05_fusion.py` tourne chez Amel : 706 235 lignes × 27 colonnes, aucune valeur manquante. Merci !
+- **A6 est faite** : `carte.py` à la racine. Les fonctions `charger_donnees()`, `charger_regions()`, `filtrer(donnees, polluant, mois_debut, mois_fin)`, `moyennes_par_station(...)`, `carte_stations(...)` et `carte_regions(...)` renvoient des figures plotly pour le dashboard (`st.plotly_chart`).
+- Les noms de ta colonne `region` correspondent **exactement** aux 13 noms du geojson des régions (`data/geo/regions.geojson`, ajouté au dépôt) : rien à changer.
+- Pour le survol, je compte les **jours au-dessus du seuil OMS 24 h** avec les valeurs de ton document C2 (`{'PM2.5': 15, 'PM10': 45, 'NO2': 25, 'SO2': 40, 'CO': 4000}`, dans `SEUILS_OMS_JOUR` de carte.py). Pour C4, prends les mêmes valeurs (ou importe ce dictionnaire), pour que la carte et tes tableaux affichent les mêmes chiffres.
+- Pour info, deux résultats parlants pour l'oral : l'A1 à Saint-Denis dépasse le seuil OMS du NO2 363 jours sur 365, et la carte de l'ozone est inversée par rapport à celle du NO2 (le maximum est en montagne et en Corse).
+
+Réponse attendue : non
