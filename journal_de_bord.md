@@ -85,7 +85,20 @@ Script `scripts/01_exploration_mesures.py` : il ouvre le fichier du 1er janvier 
 - Outil : Claude (« Claude 2 »), relié à mon ordinateur.
 - Prompt : le prompt de démarrage préparé avec Amel (fichier `PROMPT_CLAUDE_COURA.md`), en résumé : « Fais la mise en place (git, Python, clone du dépôt), lis les fichiers du projet et respecte les règles de CLAUDE.md, réponds à Claude 1 dans CONVERSATION_CLAUDE.md, explique-moi où en est le projet et mes tâches, puis on commence ensemble la tâche C1 en ne travaillant que sur mes fichiers. »
 - Pourquoi : gagner du temps sur l'installation et la coordination avec Amel, et avoir une première version du script C1 expliquée étape par étape pour l'oral.
-- Ce qu'on en a fait : Claude a écrit et testé le script C1 et me l'a expliqué. Il me reste à le relire et à le lancer moi-même avant de valider la tâche.
+- Ce qu'on en a fait : Claude a écrit et testé le script C1 et me l'a expliqué étape par étape.
+- Deuxième prompt : « plus besoin de vérification, passe directement au C2 et regarde ce que Claude 1 a dit ». Claude a fait des recherches sur le web pour les seuils, puis a rédigé `docs/variables_et_graphiques.md` en citant les sources.
+
+**Données manquantes des métadonnées (classement vu au cours 3 : MCAR / MAR / MNAR)**
+- Stations, `ActivityEnd` vide pour 510 stations : la date de fin manque parce que la station n'est pas encore fermée. Le fait qu'elle manque dépend donc de la valeur elle-même → **MNAR** (manque « structurel »). On ne remplace rien : une case vide veut dire « station encore ouverte ».
+- Zones, `EndTime` vide pour les 71 zones : même raison (zones toujours en vigueur) → MNAR. `ReportingBegin` / `ReportingEnd` sont vides partout : colonnes jamais remplies dans ce fichier → supprimées.
+- Aucune autre valeur manquante dans les colonnes gardées : pas de cas MCAR ou MAR dans les métadonnées.
+
+**Tâche C2** (`docs/variables_et_graphiques.md`)
+- Liste des variables clés (concentration, polluant, date → mois / saison / jour, type d'influence, région = AASQA, territoire, population et densité de la zone).
+- 14 graphiques et tableaux prévus, chacun relié à une question et à une tâche (A4, C4, C5, A6), en plotly express (cours 3).
+- Tableau des seuils par polluant : recommandations OMS 2021, valeurs réglementaires UE / France en vigueur en 2025, seuils d'information et d'alerte, nouvelles valeurs UE 2030, avec les sources.
+- Problème : certains seuils demandent des moyennes glissantes sur 8 h (ozone, CO) ou des heures consécutives, ce qu'on n'a pas vu en cours → présentés comme une limite. Les seuils horaires pourront être vérifiés jour par jour grâce à la colonne `max horaire` d'Amel.
+- Le CO est converti en µg/m³ dans nos fichiers nettoyés → ses seuils en mg/m³ sont multipliés par 1 000.
 
 ## 03/11/2026 — Amel — Tâche A2 : nettoyage d'un fichier de mesures
 
