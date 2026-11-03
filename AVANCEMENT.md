@@ -53,7 +53,7 @@ Principe : chacune a **ses propres fichiers** pour ne pas se marcher dessus dans
 | # | Tâche | Qui | Fichier(s) | Statut |
 |---|---|---|---|---|
 | A5 | Structure du dashboard Streamlit, filtres (polluant, région, période), pages | Amel | `app.py`, `graphiques_temps.py` | ✅ 03/11 (5 pages, testé ; la page « Lieux et seuils » attend `graphiques.py` de C5) |
-| C5 | Graphiques du dashboard (histogrammes, boxplots, courbes) | Coura | `graphiques.py` | ⬜ |
+| C5 | Graphiques du dashboard (histogrammes, boxplots, courbes) | Coura | `graphiques.py` | ✅ 03/11 (page « Lieux et seuils » : `afficher()` appelée par app.py ; G2, G6, G8 à G13 + courbe jour par jour avec seuil OMS) |
 | A6 | **Carte interactive de la France** (validée par Coura le 03/11) : un point par station, placé grâce à la latitude / longitude de `data_clean/stations.csv`, coloré selon la concentration moyenne ; filtres polluant / période ; infos au survol (nom, commune, type, valeur moyenne, nb de jours de dépassement) ; métropole et outre-mer séparés. Bonus : moyenne par région | Amel | `carte.py` | ✅ 03/11 (carte des stations + choropleth des régions, testées) |
 | 6 | Relecture croisée du code (chacune relit celui de l'autre) | Amel + Coura | — | ⬜ |
 | 7 | Préparation de l'oral | Amel + Coura | `docs/oral.md` | ⬜ |
