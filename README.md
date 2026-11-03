@@ -40,4 +40,17 @@ python scripts/telecharger_donnees.py
 Le dernier script télécharge les 365 fichiers journaliers (3,7 Go, 10 à 20 min).
 Les PDF du cours (Cours1, Cours2, TD…) sont à copier à la racine du dossier : ils ne sont pas publiés sur GitHub.
 
-Bibliothèques : `pandas`, `xlrd` (lecture des .xls), plus tard `streamlit` et une bibliothèque de graphiques.
+Bibliothèques : `pandas`, `xlrd` (lecture des .xls), `plotly`, `streamlit`.
+
+## Lancer le dashboard
+
+Après le téléchargement, lancer dans l'ordre (depuis le dossier du projet) :
+
+```bash
+python scripts/04_annee_complete.py
+python scripts/03_metadonnees.py
+python scripts/05_fusion.py
+streamlit run app.py
+```
+
+Le dashboard s'ouvre dans le navigateur (http://localhost:8501).

@@ -237,3 +237,17 @@ Fichier `carte.py` (à la racine, pour que le dashboard `app.py` puisse l'import
 - **NO2** : les régions les plus touchées sont l'**Île-de-France** (21,9 µg/m³) et **PACA** (16,7) ; les moins touchées les Pays de la Loire (8,9) et la Bretagne (10,0). Station la plus polluée : **autoroute A1 à Saint-Denis** (48,7 µg/m³, au-dessus du seuil OMS 363 jours sur 365), puis la RN20 à Montlhéry et Montpellier Libération : toutes des stations trafic.
 - **PM10** : Île-de-France (17,6) et PACA (17,0) en tête ; stations les plus touchées : A1 Saint-Denis et Avignon (39 jours au-dessus du seuil OMS de 45 µg/m³).
 - **Ozone** : carte inversée ! Les moyennes les plus élevées sont en **Corse** (67,6) et en Bretagne (63,0), et les stations les plus touchées sont en **montagne** (Le Monêtier-les-Bains dans les Alpes, 91,9 ; le Mézenc) ; en été, le **Sud-Est** ressort nettement. L'ozone se forme avec le soleil loin des sources de pollution, et il est détruit en ville par le NO émis par les voitures : il y en a donc plus à la campagne, en altitude et au soleil.
+
+## 03/11/2026 — Amel — Tâche A5 : structure du dashboard Streamlit
+
+**Ce qu'on a fait et pourquoi**
+- `app.py` : le dashboard (cours 3, Streamlit). Lancement : `streamlit run app.py`.
+  - **Barre de gauche** (`st.sidebar`) : choix de la page (`st.selectbox`) et filtres communes à toutes les pages : polluant (`st.selectbox`), période de mois (`st.select_slider` avec deux poignées), régions (`st.multiselect`, vide = toutes). Le nombre de mesures et de stations retenues est affiché sous les filtres.
+  - **5 pages** : Accueil (chiffres clés avec `st.columns`, moyenne, médiane et part des jours au-dessus du seuil OMS), Carte (cartes de A6 + tableau des stations les plus touchées dans un `st.expander`), Évolution dans le temps (graphiques de A4), Lieux et seuils (graphiques de Coura, C4 / C5), Données et méthode (résumé du nettoyage et des limites, aperçu des données).
+- `graphiques_temps.py` : les graphiques de A4 transformés en **fonctions** qui reçoivent les données filtrées et renvoient une figure (`st.plotly_chart`). Nouveauté : courbe mensuelle séparée par type d'influence (trafic / fond / industrielle).
+
+**Problèmes et solutions**
+- Streamlit **relance tout le script à chaque clic** : relire 706 235 lignes à chaque fois prendrait plusieurs secondes. Solution : `@st.cache_data` devant les fonctions de chargement, pour que les fichiers ne soient lus qu'une fois (pas vu en cours, mais indispensable avec des gros fichiers).
+- Coura n'a pas encore fini ses graphiques (C5) : `import graphiques` est mis dans un `try / except ImportError` ; tant que le fichier n'existe pas, la page « Lieux et seuils » affiche un message au lieu de planter.
+- Si les filtres ne laissent aucune mesure (ex. un polluant qui n'est pas mesuré dans la région choisie), un message d'avertissement s'affiche au lieu d'une erreur.
+- Test : les pages Accueil, Carte et Évolution ont été ouvertes dans le navigateur, sans erreur. Premier chargement environ 15 s (lecture des données), puis quelques secondes par page.
