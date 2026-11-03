@@ -187,7 +187,7 @@ print("Superficie : min", zones["superficie km2"].min(), "/ max", zones["superfi
 
 # densité = habitants par km2, arrondie à 1 chiffre après la virgule
 zones["densite"] = zones["population"] / zones["superficie km2"]
-zones["densite"] = zones["densite"].apply(lambda d: round(d, 1))
+zones["densite"] = zones["densite"].round(1)
 print("Densité : min", zones["densite"].min(), "/ max", zones["densite"].max(), "hab/km2")
 
 # --- 6. Enregistrement ---
