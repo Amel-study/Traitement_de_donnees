@@ -263,3 +263,8 @@ Fichier `carte.py` (à la racine, pour que le dashboard `app.py` puisse l'import
 - Coura n'a pas encore fini ses graphiques (C5) : `import graphiques` est mis dans un `try / except ImportError` ; tant que le fichier n'existe pas, la page « Lieux et seuils » affiche un message au lieu de planter.
 - Si les filtres ne laissent aucune mesure (ex. un polluant qui n'est pas mesuré dans la région choisie), un message d'avertissement s'affiche au lieu d'une erreur.
 - Test : les pages Accueil, Carte et Évolution ont été ouvertes dans le navigateur, sans erreur. Premier chargement environ 15 s (lecture des données), puis quelques secondes par page.
+
+## 03/11/2026 — Amel — Vérification de C4 / C5 et cas de Kawéni Nord
+
+- Dashboard relancé avec la page « Lieux et seuils » de Coura : pas d'erreur, et les chiffres concordent entre les pages (NO2 : 13,1 % des jours au-dessus du seuil OMS de 25 µg/m³).
+- Question de Coura sur la station **Kawéni Nord (Mayotte)**, la seule au-dessus de la valeur limite européenne des PM10 (141 jours au-dessus de 50 µg/m³ pour 35 autorisés). Analyse : moyenne 57,9 µg/m³ le mardi contre 35,2 le dimanche (activités humaines), maximum en saison sèche (août-septembre), alors que la station de fond de Mayotte reste vers 15-25 µg/m³ (source surtout locale). Hypothèses : circulation de la zone commerciale de Mamoudzou, poussières remises en suspension en saison sèche, et sans doute chantiers de reconstruction après le cyclone Chido (décembre 2024), à vérifier dans une source.
