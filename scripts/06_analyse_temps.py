@@ -4,6 +4,7 @@
 #   3. effet du jour de la semaine
 #   4. profil sur une journée (janvier et juillet)
 #   5. comparaison trafic / fond / industrielle
+#   6. comparaison des saisons
 # Les tableaux sont affichés, les graphiques (plotly) enregistrés en .html
 # dans le dossier resultats/ (on les ouvre avec un navigateur).
 # A lancer depuis le dossier du projet : python scripts/06_analyse_temps.py
@@ -137,5 +138,29 @@ fig = px.box(par_station, x='Polluant', y='moyenne', color="type d'influence",
              title="Moyenne annuelle des stations selon le type d'influence",
              labels={'moyenne': 'Moyenne annuelle (µg/m3)'})
 fig.write_html("resultats/trafic_fond.html")
+
+# ---------------------------------------------------------------
+# 6. Saisons (boxplot)
+# ---------------------------------------------------------------
+SAISONS = {12: 'hiver', 1: 'hiver', 2: 'hiver',
+           3: 'printemps', 4: 'printemps', 5: 'printemps',
+           6: 'été', 7: 'été', 8: 'été',
+           9: 'automne', 10: 'automne', 11: 'automne'}
+principaux['saison'] = principaux['mois'].map(SAISONS)
+
+# moyenne de chaque station sur chaque saison : une station = un point
+par_saison = principaux.groupby(['code site', 'Polluant', 'saison'],
+                                as_index=False)['moyenne'].mean()
+
+print("\n===== 6. Médiane des stations par saison (µg/m3) =====")
+print(par_saison.pivot_table(index='Polluant', columns='saison',
+                             values='moyenne', aggfunc='median').round(1)
+      [['hiver', 'printemps', 'été', 'automne']])
+
+fig = px.box(par_saison, x='Polluant', y='moyenne', color='saison',
+             category_orders={'saison': ['hiver', 'printemps', 'été', 'automne']},
+             title="Moyenne des stations selon la saison",
+             labels={'moyenne': 'Moyenne sur la saison (µg/m3)'})
+fig.write_html("resultats/saisons.html")
 
 print("\nGraphiques enregistrés dans le dossier resultats/")

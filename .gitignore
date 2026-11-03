@@ -10,6 +10,7 @@ resultats/*.html
 
 # Supports de cours de l'enseignante : on ne les publie pas (dépôt public)
 /*.pdf
+/*.zip
 cours*/
 
 # Fichiers Python / éditeurs

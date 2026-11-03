@@ -185,3 +185,8 @@ Script `scripts/06_analyse_temps.py` (15 s). Il lit les fichiers de A3, calcule 
 3. **Jour de la semaine** : le NO2 baisse nettement le **dimanche** (10,4 contre 14,9 le vendredi), car il y a moins de circulation. L'ozone ne baisse pas.
 4. **Profil sur une journée** (heure française) : en janvier, le NO2 a **deux pics, à 8 h (23,7) et à 18 h (26,7)**, les heures de pointe. En juillet, l'ozone monte toute la journée et atteint son maximum **vers 15-17 h (88)**, quand le soleil est le plus fort, puis redescend la nuit.
 5. **Trafic / fond** : les stations **trafic** ont deux fois plus de NO2 que les stations de fond (21,7 contre 10,7 en moyenne annuelle) ; l'écart est plus petit pour les PM10 (19,3 contre 14,2) et très faible pour les PM2.5 (9,7 contre 8,7), qui viennent aussi du chauffage et voyagent plus loin. L'ozone n'est presque mesuré qu'en stations de fond.
+
+## 03/11/2026 — Amel — Vérifications pour Coura et ajout du graphique des saisons
+
+- À la demande de Coura (son Claude ne peut pas télécharger les données) : on a lancé son script `03_metadonnees.py` sur nos données. Les **516 stations** des mesures 2025 sont toutes dans les 546 de `stations.csv`, et les 70 zones dans `zones.csv` : la fusion (C3) ne perdra aucune mesure. 30 stations de `stations.csv` n'ont aucune mesure en 2025.
+- Relecture de la proposition de graphiques de Coura (C2) : G1, G3, G4 et G7 étaient déjà faits en A4. Ajout de **G5, boxplot par saison** (une station = un point, moyenne sur la saison). Médiane des stations (µg/m³) : NO2 16,1 en hiver contre 7,9 en été ; PM2.5 12,6 contre 7,3 ; O3 41,2 en hiver contre 69,0 en été. Ça confirme l'évolution par mois.
