@@ -1,0 +1,18 @@
+# Données horaires : 3,7 Go, trop lourd pour GitHub.
+# Chacune les télécharge avec : python scripts/telecharger_donnees.py
+data/mesures_horaires_2025/
+
+# Fichiers produits par nos scripts (trop lourds aussi)
+data_clean/*.csv
+
+# Supports de cours de l'enseignante : on ne les publie pas (dépôt public)
+/*.pdf
+
+# Fichiers Python / éditeurs
+__pycache__/
+.ipynb_checkpoints/
+.spyproject/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
