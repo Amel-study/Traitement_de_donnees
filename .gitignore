@@ -7,6 +7,7 @@ data_clean/*.csv
 
 # Supports de cours de l'enseignante : on ne les publie pas (dépôt public)
 /*.pdf
+cours*/
 
 # Fichiers Python / éditeurs
 __pycache__/
