@@ -119,3 +119,39 @@ Le fichier s'appelle `nettoyage_mesures.py` (et non `02_...`) car Python ne peut
 - Pas de normalisation de type min-max : on veut comparer les vraies concentrations aux seuils réglementaires.
 
 **Résultat** : 1er janvier : 49 968 → 47 886 lignes, 23 → 15 colonnes, 0 valeur manquante (sauf `discriminant`), une seule unité. Durée : 0,2 s par fichier, donc environ 1 min 30 pour les 365.
+
+## 03/11/2026 — Amel — Cours 3 et tâche A3 : passage à l'année complète
+
+**Cours 3**
+Ajout du chapitre 3 (data cleansing, graphiques plotly, Streamlit) à la liste de ce qui a été vu en cours (CLAUDE.md), pour que les deux Claude l'utilisent.
+
+**Classement des données manquantes (cours 3 : MCAR / MAR / MNAR)**
+Les valeurs manquantes des mesures sont les mesures invalides (`validité = -1`). Elles viennent des appareils (panne, maintenance, calibration) et pas de la valeur de la pollution elle-même : elles sont plutôt **MCAR** ou **MAR** (liées à une station ou à une période de maintenance), pas MNAR. On ne les remplace pas par une moyenne (`fillna`) : sur une heure isolée ce serait inventer une mesure ; on les supprime et on vérifie qu'il reste assez d'heures pour calculer la moyenne du jour (voir plus bas).
+
+**Ce qu'on a fait et pourquoi (A3)**
+Script `scripts/04_annee_complete.py` : une boucle sur les 365 fichiers (noms construits avec une f-string, `try/except` pour les dates qui n'existent pas). Pour chaque jour :
+1. lecture du fichier et nettoyage avec la fonction `nettoyer_mesures` de A2 (importée) ;
+2. réduction à **une ligne par jour, par station et par polluant** avec `groupby` : moyenne, maximum horaire et nombre d'heures mesurées ;
+3. pour janvier et juillet seulement, on garde aussi le détail heure par heure (6 colonnes) pour étudier l'évolution sur une journée (A4).
+À la fin, `pd.concat` met les 365 jours bout à bout et `to_csv` enregistre les résultats dans `data_clean/`.
+
+**Problème résolu** : 17,6 millions de lignes ne tiennent pas en mémoire d'un coup. En traitant un jour à la fois et en réduisant chaque jour à environ 1 950 lignes, on n'a jamais plus d'un fichier brut en mémoire.
+
+**Résultats**
+- 365 jours lus, 17 597 676 lignes brutes → 16 983 009 après nettoyage → **706 235 lignes journalières** (12 colonnes), 516 stations.
+- 11 022 moyennes journalières calculées sur **moins de 18 heures** ont été enlevées : la règle européenne demande au moins 75 % des heures du jour pour qu'une moyenne journalière soit valable.
+- 2 901 453 lignes horaires pour janvier et juillet.
+- Durée : 2 min 50.
+
+**Vérification des valeurs extrêmes sur l'année entière**
+Les maximums horaires sont élevés : benzène 180 µg/m³, CO 18 047 µg/m³ (18 mg/m³), PM10 1 160 µg/m³, SO2 873 µg/m³. Après vérification, ils sont presque tous **explicables**, on les garde :
+- benzène, SO2, CO : stations **industrielles** (Martigues-Lavera et Berre près des raffineries de l'étang de Berre, Lacq, Grande-Synthe près de l'aciérie) ;
+- PM10 : pics le **24 décembre** (Mayotte, Saint-Quentin) et le 31 décembre, soirées de fêtes ;
+- ce sont des pics d'**une heure** : les moyennes journalières restent bien plus basses (ex. Ajaccio : 18 mg/m³ de CO sur une heure, mais 1 mg/m³ en moyenne sur la journée).
+Un seul cas est douteux (CO à Ajaccio, station trafic) : on le signale mais on le garde, car il a été validé par l'organisme et il n'influence presque pas la moyenne du jour.
+
+**Autres découvertes**
+- 22 stations **changent de nom** en cours d'année (ex. « ECOLE M.JACQUIER » devient « Toulouse École m. Jacquier ») → il faut toujours identifier une station par son code.
+- Le `type d'influence` dépend du polluant mesuré, pas seulement de la station (ex. une même station est « Industrielle » pour le SO2 et « Fond » pour l'ozone).
+- 3 stations ont changé de `type d'implantation` en mai (Rurale près des villes → Périurbaine).
+- Les jours sont découpés en heure TU (temps universel), pas en heure française.

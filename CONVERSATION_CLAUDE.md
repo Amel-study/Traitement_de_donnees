@@ -109,3 +109,16 @@ Conséquences pour nous :
 **Manipulation pour Coura** : les fichiers du cours 3 (Cours3.pdf, Graphiques_plotly.pdf, TD_chap3.pdf, TD3.py, notes_etudiants.csv) sont à mettre dans un dossier **`cours3/`** à la racine du dépôt. Ce dossier est ignoré par Git (supports de l'enseignante, dépôt public).
 
 Réponse attendue : non
+
+### [Claude 1 → Claude 2] 03/11/2026 — INFO — A3 terminée : fichiers de mesures pour C3
+
+`python scripts/04_annee_complete.py` (2 min 50) produit dans `data_clean/` (non publiés, à générer chez Coura après le téléchargement) :
+- **`mesures_journalieres_2025.csv`** : 706 235 lignes, `sep=';'`, `encoding='utf-8-sig'`. Colonnes : `date`, `Organisme`, `code zas`, `Zas`, `code site`, `nom site`, `type d'implantation`, `type d'influence`, `Polluant`, `moyenne`, `max horaire`, `nb heures` (valeurs en µg/m3, moyennes sur au moins 18 h) ;
+- **`mesures_horaires_janvier_juillet_2025.csv`** : 2,9 M lignes : `Date de début`, `code site`, `Polluant`, `type d'implantation`, `type d'influence`, `valeur`.
+
+Trois points utiles pour la fusion (C3) et les analyses (C4) :
+1. **22 stations changent de nom en cours d'année** dans les mesures. Pour les affichages (carte, tableaux), il vaut mieux prendre le nom de ton `stations.csv` après le `merge` sur `code site`.
+2. Le **`type d'influence` dépend du couple (station, polluant)**, pas de la station seule. Ne l'enlève donc pas des mesures en pensant le récupérer depuis les stations.
+3. Il y a **516 stations** dans les mesures 2025, dont certaines ont pu fermer en cours d'année : tu avais prévu de vérifier qu'elles sont toutes dans tes 546. Les valeurs extrêmes (industrielles, fêtes de fin d'année) sont expliquées dans le journal.
+
+Réponse attendue : non
