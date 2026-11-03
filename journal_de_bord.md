@@ -113,6 +113,19 @@ Script `scripts/01_exploration_mesures.py` : il ouvre le fichier du 1er janvier 
 - Contrôle de cohérence entre deux colonnes liées : la colonne `territoire` (calculée en C1 à partir des coordonnées GPS) donne « outre-mer » exactement pour les 5 organismes des DROM. Les deux sources sont d'accord.
 - Problème : le script met environ 2 minutes à cause de la taille du fichier (167 Mo) → rien à corriger, il ne se lance qu'une fois.
 
+**Tâche C4** (`scripts/07_analyse_lieux.py`) : analyse selon les lieux et dépassements de seuils
+- Méthode : pour chaque jour et chaque station, on compare la moyenne du jour au seuil OMS 24 h (colonne `depasse OMS`, vrai / faux). Ensuite, moyenne annuelle de chaque station et de chaque polluant, en ne gardant que les stations qui ont mesuré au moins 75 % de l'année (274 jours) : 1 945 couples station-polluant sur 2 117. Ce fichier est aussi enregistré pour la carte d'Amel (`data_clean/moyennes_annuelles_stations.csv`).
+- Choix : pour comparer les régions, on ne garde que les stations **de fond**. Sinon, une région avec beaucoup de stations au bord des routes paraîtrait plus polluée qu'elle ne l'est.
+- **Résultats principaux (2025)** :
+  - Recommandations OMS annuelles dépassées par 97,5 % des stations pour les PM2.5, 63 % pour le NO2 et 47 % pour les PM10, alors que **les valeurs limites européennes annuelles sont presque toutes respectées** : 0 station pour les particules, 6 stations pour le NO2 (toutes au bord de grands axes : A1 à Saint-Denis 48,7 µg/m³, boulevard périphérique, RN20, périphérique de Lyon, Perpignan, Montpellier).
+  - Régions (stations de fond) : NO2 le plus élevé en Île-de-France (17,5 µg/m³) et en Provence-Alpes-Côte d'Azur (15,0) ; ozone le plus élevé en Corse (69,8), Provence-Alpes-Côte d'Azur (63,9), Occitanie (62,2) et Bretagne (62,0) ; PM10 le plus élevé aux Antilles (Guadeloupe 21,3, Martinique 19,5).
+  - Types de zones : NO2 médian de 14,9 µg/m³ en agglomération, 12,2 en zone à risque et 8,9 en zone régionale ; l'ozone suit l'ordre inverse (plus élevé à la campagne).
+  - Densité de population (`pd.cut` en 4 classes) : NO2 moyen des stations de fond de 8,0 µg/m³ sous 100 hab/km², contre 17,0 au-dessus de 1 000 hab/km².
+  - Contingence NO2 : 33,6 % des jours sont au-dessus de l'OMS pour les stations trafic, contre 6,3 % pour les stations de fond. Pour les PM2.5, la différence est faible (14,7 % contre 12,8 %) : les particules fines viennent de beaucoup d'autres sources que le trafic.
+  - Contingence PM10 : 5,6 % des jours au-dessus de l'OMS en outre-mer, contre 0,9 % en métropole. Une seule station dépasse la valeur limite européenne (plus de 35 jours au-dessus de 50 µg/m³) : Kawéni Nord à Mayotte, avec 141 jours. **À expliquer avant l'oral** (je n'ai pas encore cherché la cause).
+  - Seuils d'information : 868 jours-stations au-dessus de 50 µg/m³ pour les PM10, 92 pour l'ozone (180 µg/m³ sur au moins 1 h), 1 seul pour le NO2. Aucun jour au seuil d'alerte de l'ozone.
+- Limites : on compte des jours où **au moins une heure** dépasse le seuil horaire (colonne `max horaire`), pas le nombre exact d'heures ; les moyennes glissantes sur 8 h (ozone, CO) n'ont pas été calculées (voir C2).
+
 ## 03/11/2026 — Amel — Tâche A2 : nettoyage d'un fichier de mesures
 
 **Ce qu'on a fait et pourquoi**
