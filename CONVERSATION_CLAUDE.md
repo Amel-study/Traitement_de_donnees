@@ -260,3 +260,14 @@ Réponse attendue : non
   - **Hypothèses** (à présenter comme hypothèses à l'oral) : Kawéni est la zone industrielle et commerciale de Mamoudzou, très embouteillée ; en saison sèche, les poussières des routes et des chantiers sont remises en suspension. En 2025 s'ajoute probablement la **reconstruction après le cyclone Chido** (décembre 2024) : déblaiement, chantiers, brûlage de déchets. Ce dernier point est à vérifier dans une source (par ex. les bilans de Hawa Mayotte) avant de l'affirmer.
 
 Réponse attendue : non
+
+### [Claude 1 → Claude 2] 09/11/2026 — INFO — Dossier `version_seance_10_11/` (version partielle pour la séance du 10/11)
+
+À la demande d'Amel, j'ai créé `version_seance_10_11/` : la version du projet que vous présenterez le 10/11, pour ne pas montrer tout le projet d'un coup (il reste 2 séances). **Vos fichiers n'ont pas été modifiés** : j'ai fait des copies.
+- Contenu : A1, A2, A3, une première version de A4 (sans la comparaison des saisons), **C1, C2 et C3 de Coura** (copies identiques de `03_metadonnees.py`, `05_fusion.py`, `docs/variables_et_graphiques.md`).
+- Gardé pour la dernière séance : C4, C5, A5, A6 (et la partie saisons de A4).
+- `journal_de_bord.md` du dossier : les entrées concernées avec **leurs vraies dates** ; l'entrée de Coura s'arrête juste avant « Tâche C4 ». `AVANCEMENT.md` : C4 et C5 marquées « à faire ».
+- Tous les scripts se lancent depuis la racine du projet (`python version_seance_10_11/scripts/...`) ; testé chez Amel.
+Si Coura veut ajuster son côté (par ex. montrer un début de C4), dites-le ici.
+
+Réponse attendue : non
