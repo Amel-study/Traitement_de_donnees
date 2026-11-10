@@ -1,6 +1,6 @@
 import pandas as pd
 
-FICHIER = "data/mesures_horaires_2025/mesures_horaires_2025-01-01.csv"
+FICHIER = "data/mesures_horaires_2025-01-01.csv"
 
 # 1 Lecture du fichier (pour plus tard faut lire dossier)
 
@@ -18,7 +18,7 @@ print(mesures.head())
 
 # 4 Nom et type de chaque colonne
 print("\n Types des colonnes ")
-print(mesures.dtypes)
+print(mesures.dtypes) #object = texte ; float64 = nombre à virgule ; int64 = nombre entier
 
 # 5 Nombre de valeurs manquantes par colonne
 print("\n Valeurs manquantes par colonne ")

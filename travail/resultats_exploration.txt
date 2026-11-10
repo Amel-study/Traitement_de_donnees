@@ -1,7 +1,7 @@
 Nombre de lignes : 49968
-nb de colonnes : 23
+Nombre de colonnes : 23
 
-premieres lignes :
+ Premières lignes 
          Date de début          Date de fin  ... code qualité validité
 0  2025/01/01 00:00:00  2025/01/01 01:00:00  ...            A        1
 1  2025/01/01 01:00:00  2025/01/01 02:00:00  ...            A        1
@@ -11,7 +11,7 @@ premieres lignes :
 
 [5 rows x 23 columns]
 
---- types ---
+ Types des colonnes 
 Date de début             object
 Date de fin               object
 Organisme                 object
@@ -37,7 +37,7 @@ code qualité              object
 validité                   int64
 dtype: object
 
-Valeurs manquantes par colonne :
+ Valeurs manquantes par colonne 
 Date de début                0
 Date de fin                  0
 Organisme                    0
@@ -63,57 +63,59 @@ code qualité                 0
 validité                     0
 dtype: int64
 
-Organisme : 17 valeurs differentes
+--- Valeurs des colonnes de catégories ---
+
+Organisme : 17 valeurs différentes
 ['ATMO GRAND EST' 'ATMO SUD' 'AIRPARIF' 'ATMO NORMANDIE'
  'ATMO HAUTS DE FRANCE' 'ATMO AUVERGNE-RHÔNE-ALPES' 'ATMO OCCITANIE'
  'ATMO NOUVELLE-AQUITAINE' 'AIR BREIZH' 'AIR PAYS DE LA LOIRE'
  'ATMO BOURGOGNE-FRANCHE-COMTE' "LIG'AIR" "GWAD'AIR" 'ATMO REUNION'
  'MADININAIR' 'ATMO GUYANE' 'QUALITAIR CORSE']
 
-type d'implantation : 5 valeurs differentes
+type d'implantation : 5 valeurs différentes
 ['Urbaine' 'Rurale près des villes' 'Périurbaine' 'Rurale régionale'
  'Rurale nationale']
 
-Polluant : 9 valeurs differentes
+Polluant : 9 valeurs différentes
 ['NO' 'NO2' 'O3' 'NOX as NO2' 'PM10' 'PM2.5' 'C6H6' 'SO2' 'CO']
 
-type d'influence : 3 valeurs differentes
+type d'influence : 3 valeurs différentes
 ['Fond' 'Industrielle' 'Trafic']
 
-discriminant : 26 valeurs differentes
+discriminant : 26 valeurs différentes
 ['A' 'B' '1' 'K' '3' nan 'I' 'H' 'F' 'E' 'C' '4' '2' '0' 'D' '7' '5' 'j'
  'i' 'G' '6' '9' 'Z' '8' 'O' 'L']
 
-Réglementaire : 1 valeurs differentes
+Réglementaire : 1 valeurs différentes
 ['Oui']
 
-type d'évaluation : 3 valeurs differentes
+type d'évaluation : 3 valeurs différentes
 ['mesures fixes' 'mesures indicatives' 'estimation objective']
 
-type de valeur : 1 valeurs differentes
+type de valeur : 1 valeurs différentes
 ['moyenne horaire validée']
 
-unité de mesure : 3 valeurs differentes
+unité de mesure : 3 valeurs différentes
 ['µg-m3' 'mg-m3' 'µg/m3']
 
-code qualité : 3 valeurs differentes
+code qualité : 3 valeurs différentes
 ['A' 'R' 'N']
 
-validité : 3 valeurs differentes
+validité : 3 valeurs différentes
 [ 1 -1  4]
 
-nombre de stations : 506
+Nombre de stations : 506
 Nombre de zones : 70
-procedures de mesure : 56
+Nombre de procédures de mesure : 56
 
-debut : 2025/01/01 00:00:00
-fin : 2025/01/02 00:00:00
+Première date de début : 2025/01/01 00:00:00
+Dernière date de fin : 2025/01/02 00:00:00
 
-Colonnes de valeurs
+--- Colonnes de valeurs ---
 valeur : min = -4.5, moyenne = 17.89, max = 537.0
 valeur brute : min = -4.45, moyenne = 17.87, max = 537.025
 
---- par polluant ---
+ Valeurs par polluant
             nb mesures    min    moyenne      max
 Polluant                                         
 C6H6                94  0.000   1.660213   11.570
@@ -126,7 +128,7 @@ PM10              7790 -2.000  15.960026  304.600
 PM2.5             5702 -1.000  13.352140  125.400
 SO2               1737 -3.900   1.780253   78.700
 
-unités :
+ Unité utilisée par polluant
 Polluant
 C6H6                 [µg-m3]
 CO                   [mg-m3]
