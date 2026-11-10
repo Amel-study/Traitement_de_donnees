@@ -1,0 +1,2 @@
+# fichiers de donnees : garder les octets d origine (pas de conversion des fins de ligne)
+*.csv -text
